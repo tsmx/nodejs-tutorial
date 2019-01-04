@@ -1,0 +1,19 @@
+version: "2"
+services:
+  app:
+    container_name: app
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - mongoservice
+    links: 
+      - mongoservice
+  mongoservice:
+    container_name: mongoservice
+    image: mongo
+    volumes:
+      - /home/sebastian/Dokumente/appdata/NodeJSTest/mongodata:/data/db
+    ports:
+      - "27017:27017"
