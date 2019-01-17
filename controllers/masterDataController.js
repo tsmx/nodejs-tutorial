@@ -1,10 +1,10 @@
-var logger = require('../utils/logging').logger; 
+var logger = require('../utils/logging').logger;
 var requestinfostring = require('../utils/logging').requestinfostring;
 var masterDataModel = require('../models/masterDataModel.js');
 
-exports.listAll = function(req, res) {
+exports.listAll = function (req, res) {
 	logger.info('masterData.listAll called ' + requestinfostring(req));
-	masterDataModel.find({}, function(err, data) {
+	masterDataModel.find({}, function (err, data) {
 		if (err) {
 			res.send(err);
 		}
@@ -12,9 +12,9 @@ exports.listAll = function(req, res) {
 	});
 };
 
-exports.getObjectById = function(req, res) {
+exports.getObjectById = function (req, res) {
 	logger.info('masterData.getObjectById called ' + requestinfostring(req));
-	masterDataModel.findById(req.params.id, function(err, data) {
+	masterDataModel.findById(req.params.id, function (err, data) {
 		if (err) {
 			logger.error(err);
 			res.send(err);
@@ -23,12 +23,14 @@ exports.getObjectById = function(req, res) {
 	});
 };
 
-exports.getChildrenById = function(req, res) {
+exports.getChildrenById = function (req, res) {
 	logger.info('masterData.getChildrenById called ' + requestinfostring(req));
-	masterDataModel.findById(req.params.id, 'children', function(err, data) {
-		if (err) {
-			res.send(err);
-		}
-		res.json(data);
-	});
+	masterDataModel.findById(req.params.id, 'children')
+		.populate('children')
+		.exec(function (err, data) {
+			if (err) {
+				res.send(err);
+			}
+			res.json(data);
+		});
 };
