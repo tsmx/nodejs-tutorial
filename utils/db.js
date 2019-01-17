@@ -4,7 +4,7 @@ var mongoose = require( 'mongoose' );
 var dbURI = 'mongodb://mongoservice:27017/tsmtest'; 
 
 // Create the database connection 
-mongoose.connect(dbURI, {useMongoClient: true}); 
+mongoose.connect(dbURI, { useNewUrlParser: true }); 
 
 // CONNECTION EVENTS
 // When successfully connected
