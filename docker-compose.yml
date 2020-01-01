@@ -10,10 +10,11 @@ services:
       - mongoservice
     links: 
       - mongoservice
+    command: [ "./scripts/wait-for-it.sh", "mongoservice:27017", "--", "npm", "start" ]
   mongoservice:
     container_name: mongoservice
-    image: mongo
+    image: mongo:3.4
     volumes:
       - /home/sebastian/Dokumente/appdata/NodeJSTest/mongodata:/data/db
     ports:
-      - "27017:27017"
+      - "37017:27017"
