@@ -15,6 +15,6 @@ services:
     container_name: mongoservice
     image: mongo:3.4
     volumes:
-      - /home/sebastian/Dokumente/appdata/NodeJSTest/mongodata:/data/db
+      - /Users/strs/Documents/mongodata:/data/db
     ports:
       - "37017:27017"
