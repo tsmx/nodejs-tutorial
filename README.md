@@ -1,3 +1,5 @@
+# NodeJSTest
+
 A simple NodeJS test project for demonstrating:
 - basic Express usage for routes of a REST API (only GET ;-)
 - basic logging functionality using Winston
