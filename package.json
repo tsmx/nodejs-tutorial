@@ -1,10 +1,25 @@
 {
   "name": "nodejstest",
   "version": "0.0.1",
-  "private": true,
+  "description": "Tutorial project for NodeJS demonstrating: Express, Winston, MongoDB with Mongoose, Docker, Docker-Compose.",
   "scripts": {
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsmx/nodejs-test.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "Docker",
+    "Docker Compose",
+    "MongoDB",
+    "Mongoose",
+    "Tutorial",
+    "Winston"
+  ],
+  "author": "tsmx <dev@tsmx.net>",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.7.5",
