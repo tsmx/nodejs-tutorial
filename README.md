@@ -92,13 +92,15 @@ You can validate that hierarchy after loading the test data by executing the pro
 
 ### MongoDB hostname alias
 
-To make a project work seamlessly in both - local environment (MongoDB on localhost) and within Docker/Docker-Compose scenario - you should use an alias for the MongoDB database host and not `localhost`. The advantage is, that the alias works in both - local and docker-compose - environments withoud the need of changing any configuration.
+To make a project work seamlessly in both - local environment (MongoDB on localhost) and within Docker/Docker-Compose scenario - you should use an alias for the MongoDB database host and not `localhost`. The advantage is, that the alias works in both environments without the need of changing any configuration.
 
 In the tutorial I use `mongoservice` as the alias in Docker-Compose. To be able to run the project with your local MongoDB, simply add the following line to your `/etc/hosts` file:
 
 ```bash
 127.0.0.1   mongoservice
 ```
+
+Having this in place, the application can always connect to the MongoDB by using the hostname alias `mongoservice`.
 
 ### MongoDB data directory for Docker-Compose
 
