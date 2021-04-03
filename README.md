@@ -29,7 +29,7 @@ docker build -t tsmx/nodejs-tutorial .
 docker run -p 3000:3000 --add-host=mongoservice:172.17.0.1 tsmx/nodejs-tutorial
 ```
 
-In order to let a Docker container communicate with local services like MongoDB you have to find out the Docker network bridge IP of your installation. In this tutorial the hostname alias `mongoservice` is used, read more about that [here](#mongodb-hostname-alias). By default `172.17.0.1` is used. Check out your bridge IP by executing `docker network inspect bridge | grep Gateway`. For more details refer to the [Docker documentation on networking of standalone containers](https://docs.docker.com/network/network-tutorial-standalone/).
+In order to let a Docker container communicate with local services like MongoDB you have to find out the Docker network bridge IP of your installation. In this tutorial the hostname alias `mongoservice` is used, read more about that [here](#mongodb-hostname-alias). By default `172.17.0.1` is used as Docker's bridge IP. Check out your actual bridge IP by executing `docker network inspect bridge | grep Gateway`. For more details refer to the [Docker documentation on networking of standalone containers](https://docs.docker.com/network/network-tutorial-standalone/).
 
 ### Docker-Compose
 
