@@ -1,0 +1,4 @@
+# build the image
+docker build -t tsmx/nodejs-tutorial .
+# run the image, publish port 3000 and point 'mongoservice' to the Docker bridge IP to localhost
+docker run -p 3000:3000 --add-host=mongoservice:172.17.0.1 tsmx/nodejs-tutorial

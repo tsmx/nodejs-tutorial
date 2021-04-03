@@ -20,6 +20,17 @@ Creating a simple database model with Mongoose for storing data in MongoDB.
 
 Dockerizing the app and run it in a virtual container.
 
+To create and run with Docker execute the following in the tutorial's main directory.
+
+```bash
+# build the image
+docker build -t tsmx/nodejs-tutorial .
+# run the image, publish port 3000 and point 'mongoservice' to the Docker bridge IP to localhost
+docker run -p 3000:3000 --add-host=mongoservice:172.17.0.1 tsmx/nodejs-tutorial
+```
+
+In order to let a Docker container communicate with local services like MongoDB you have to find out the Docker network bridge IP of your installation. By default `172.17.0.1` is used. Check out your bridge IP by executing `docker network inspect bridge | grep Gateway`. For more details refer to the [Docker documentation on networking of standalone containers](https://docs.docker.com/network/network-tutorial-standalone/).
+
 ### Docker-Compose
 
 Docker-Compose the app together it with a MongoDB database to create fully self-contained containerized solution. Includes showcase for the `wait-for-it.sh` script to ensure proper [order of starting up composed services](https://docs.docker.com/compose/startup-order/), e.g. DB before application.
