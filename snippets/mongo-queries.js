@@ -22,8 +22,8 @@ function processChildren(parent, level) {
     }
 }
 
-//var root = db.masterdata.find({ "parent": null, "children" : {$not: { $size: 0}}}); // alle Root-Elemente mit Kind-Elementen
-var root = db.masterdata.find({ "parent": null }); // alle Root-Elemente
+//var root = db.masterdata.find({ "parent": null, "children" : {$not: { $size: 0}}}); // all root-elements with children
+var root = db.masterdata.find({ "parent": null }); // all root-elements with/without children
 while (root.hasNext()) {
     var parent = root.next();
     print(parent.name);

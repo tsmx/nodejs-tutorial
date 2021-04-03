@@ -1,7 +1,7 @@
 var logger = require('../utils/logging').logger;
 
 var mongoose = require('mongoose');
-var dbURI = 'mongodb://mongoservice:27017/tsmtest';
+var dbURI = 'mongodb://mongoservice:27017/nodejstutorial';
 
 // Create the database connection 
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
