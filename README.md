@@ -2,7 +2,7 @@
 
 > Tutorial project demonstrating common NodeJS development libraries & tools.
 
-## Contents
+## Contents of the tutorial
 
 ### Express
 
@@ -15,6 +15,14 @@ Logging functionality using Winston.
 ### Mongoose and MongoDB
 
 Creating a simple database model with Mongoose for storing data in MongoDB.
+
+Also demonstrating the `ref` option and `populate` functionality of Mongoose. For more details on this refer to [the official docs for query population](https://mongoosejs.com/docs/populate.html). 
+
+### Jest with supertest and mongodb-memory-server
+
+Unit-testing the Express server backend utilizing an in-memory MongoDB server pre-loaded with test data.
+
+Run `npm start test` to run the tests.
 
 ### Docker
 
@@ -33,7 +41,37 @@ In order to let a Docker container communicate with local services like MongoDB 
 
 ### Docker-Compose
 
-Docker-Compose the app together it with a MongoDB database to create fully self-contained containerized solution. Includes showcase for the `wait-for-it.sh` script to ensure proper [order of starting up composed services](https://docs.docker.com/compose/startup-order/), e.g. DB before application.
+Docker-Compose the app together it with a MongoDB database to create fully self-contained containerized solution.
+
+Includes showcase for the `wait-for-it.sh` script to ensure proper [order of starting up composed services](https://docs.docker.com/compose/startup-order/), e.g. DB before application.
+
+## File and folder structure
+
+A quick overview on the most important files & folders.
+
+```
+nodejstutorial
+|
++-- controllers/        --> implementation of the logic for the REST API routes
+|
++-- models/             --> Mongoose model definitions
+|
++-- routes/             --> definition of the Express routes
+|
++-- scripts/            --> additional needed scripts, e.g. wait-for-it.sh
+|
++-- snippets/           --> usefuls code snippets that are not part of the project itself
+|
++-- test/               --> Jest unit test implementation
+|
++-- utils/              --> general helper modules for logging with Winston and connecting Mongoose to MongoDB
+|
++-- app.js              --> main Express app implementation 
+|
++-- jest.config.js      --> general Jest configuration settings
+|
++-- start.js            --> startup wrapper for the app
+```
 
 ## Routes
 
@@ -99,7 +137,7 @@ Contract 2
 
 You can validate that hierarchy after loading the test data by executing the provided script in `snippets/mongo-queries.js` in your `nodejstest` database. It should print out exactly that hierarchy if everything was inserted successful.
 
-## Hints
+## Hints and best-practices
 
 ### MongoDB hostname alias
 
@@ -126,3 +164,14 @@ mongoservice:
       - /YOUR/PATH/TO/LOCAL/MONGODATA:/data/db
 ```
 
+### _id field in Mongoose schemas
+
+In this tutorial a "speaking" and manually set string is used as the _id for every object for demonstration purposes. By default, Mongoose generates an `_id` field automatically in every schema and populates it with a unique value of type `ObjectId(...)`. 
+
+In most cases, it is the best solution to let Mongoose handle the `_id` field and to not set it manually. For more details refer to the [Mongoose guide on id's](https://mongoosejs.com/docs/guide.html#_id).
+
+### Implementing Express configuration and startup in separate files
+
+You may have noticed that in this tutorial the traditional startup of the Express app by calling `app.listen(...)` is sourced-out to a separate small file called `start.js`. In `app.js` the Express app is configured entirely an then exported. Now, why that?
+
+The rationale for that is: unit-testing. Libraries like `supertest` often need a refernce to the fully configured but not yet started and not yet bound to any concrete port Express app. This can easily be achieved by splitting the Express app configuration and startup into two files like in this tutorial.
