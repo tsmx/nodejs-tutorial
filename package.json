@@ -1,5 +1,5 @@
 {
-  "name": "nodejstest",
+  "name": "nodejstutorial",
   "version": "0.0.1",
   "description": "Tutorial project for NodeJS demonstrating: Express, Winston, MongoDB with Mongoose, Docker, Docker-Compose.",
   "scripts": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tsmx/nodejs-test.git"
+    "url": "https://github.com/tsmx/nodejs-tutorial.git"
   },
   "keywords": [
     "NodeJS",
