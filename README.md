@@ -62,9 +62,9 @@ nodejstutorial
 |
 +-- snippets/           --> usefuls code snippets that are not part of the project itself
 |
-+-- test/               --> Jest unit test implementation
++-- tests/              --> Jest unit test implementation
 |
-+-- utils/              --> general helper modules for logging with Winston and connecting Mongoose to MongoDB
++-- utils/              --> helper modules for logging with Winston and connecting Mongoose to MongoDB
 |
 +-- app.js              --> main Express app implementation 
 |
@@ -166,7 +166,7 @@ mongoservice:
 
 ### _id field in Mongoose schemas
 
-In this tutorial a "speaking" and manually set string is used as the _id for every object for demonstration purposes. By default, Mongoose generates an `_id` field automatically in every schema and populates it with a unique value of type `ObjectId(...)`. 
+In this tutorial a "speaking" and manually set string is used as the `_id` for every object for demonstration purposes. By default, Mongoose generates an `_id` field automatically in every schema and populates it with a unique value of type `ObjectId(...)`. 
 
 In most cases, it is the best solution to let Mongoose handle the `_id` field and to not set it manually. For more details refer to the [Mongoose guide on id's](https://mongoosejs.com/docs/guide.html#_id).
 
@@ -174,4 +174,4 @@ In most cases, it is the best solution to let Mongoose handle the `_id` field an
 
 You may have noticed that in this tutorial the traditional startup of the Express app by calling `app.listen(...)` is sourced-out to a separate small file called `start.js`. In `app.js` the Express app is configured entirely an then exported. Now, why that?
 
-The rationale for that is: unit-testing. Libraries like `supertest` often need a refernce to the fully configured but not yet started and not yet bound to any concrete port Express app. This can easily be achieved by splitting the Express app configuration and startup into two files like in this tutorial.
+The rationale for that is: unit-testing. Libraries like `supertest` often need a reference to the fully configured but not yet started and not yet bound to any concrete port Express app. This can easily be achieved by splitting the Express app configuration and startup into two files like in this tutorial.
