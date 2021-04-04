@@ -1,4 +1,4 @@
-var mongoose = require('../utils/db.js');
+var mongoose = require('../utils/db.js').mongoose;
 
 // schema for master data objects
 var masterDataSchema = mongoose.Schema({

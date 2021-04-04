@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Tutorial project for NodeJS demonstrating: Express, Winston, MongoDB with Mongoose, Docker, Docker-Compose.",
   "scripts": {
-    "start": "node app.js"
+    "start": "node start.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.7.5",
+    "mongoose": "^5.10.9",
     "winston": "^3.2.1"
   }
 }

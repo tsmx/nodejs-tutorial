@@ -1,6 +1,6 @@
 module.exports = function(app) {
-  var testData = require('../controllers/testDataController');
-  var masterData = require('../controllers/masterDataController');
+  const testData = require('../controllers/testDataController');
+  const masterData = require('../controllers/masterDataController');
 
   // some test routes
   app.get('/test', testData.listAll);

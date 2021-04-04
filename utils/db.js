@@ -1,26 +1,32 @@
-var logger = require('../utils/logging').logger;
-
+const logger = require('../utils/logging').logger;
 var mongoose = require('mongoose');
-var dbURI = 'mongodb://mongoservice:27017/nodejstutorial';
+
+const dbURI = 'mongodb://mongoservice:27017/nodejstutorial';
+
+const dbOptions = {
+    useNewUrlParser: true, 
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+};
 
 // Create the database connection 
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// CONNECTION EVENTS
-// When successfully connected
-mongoose.connection.on('connected', function () {
-  logger.info('Mongoose default connection open to ' + dbURI);
-});
-
-// If the connection throws an error
-mongoose.connection.on('error', function (err) {
-  logger.error('Mongoose default connection error: ' + err);
-});
-
-// When the connection is disconnected
-mongoose.connection.on('disconnected', function () {
-  logger.info('Mongoose default connection disconnected');
-});
+function connect(cb) {
+    logger.info('Trying to connect to ' + dbURI);
+    mongoose.connect(dbURI, dbOptions);
+    var db = mongoose.connection;
+    db.on('error', function (err) {
+        logger.error('Mongoose default connection error: ' + err);
+        process.exit(1);
+    });
+    db.on('disconnected', function () {
+        logger.info('Mongoose default connection disconnected');
+    });
+    db.once('open', function () {
+        logger.info('Mongoose default connection open to ' + dbURI);
+        cb();
+    });
+}
 
 // If the Node process ends, close the Mongoose connection 
 process.on('SIGINT', function () {
@@ -30,4 +36,5 @@ process.on('SIGINT', function () {
   });
 });
 
-module.exports = mongoose;
+module.exports.connect = function (cb) { connect(cb); };
+module.exports.mongoose = mongoose;

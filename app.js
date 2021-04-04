@@ -1,10 +1,8 @@
-var express = require('express');
-var logger = require('./utils/logging').logger;
+const express = require('express');
+const logger = require('./utils/logging').logger;
+const routes = require('./routes/routes');
+
 var app = express();
+routes(app);
 
-var routes = require('./routes/routes'); //importing route
-routes(app); //register the route
-
-app.listen(3000, function () {
-  logger.info('nodejs-tutorial app listening on port 3000...');
-});
+module.exports = app;
