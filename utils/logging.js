@@ -7,9 +7,14 @@ const myFormat = format.printf((info) => {
 	return `${info.timestamp} ${info.level.toUpperCase()} ${info.message}`;
 });
 
+var transporters = [new winston.transports.Console()];
+if (process.env.NODE_ENV == 'test') {
+    transporters[0].silent = true;
+}
+
 var logger = winston.createLogger({
 	format: format.combine(format.timestamp(), myFormat),
-	transports: [new winston.transports.Console()]
+	transports: transporters
 });
 
 // export a basic logger object

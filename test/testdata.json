@@ -1,0 +1,68 @@
+[
+    {
+        "_id": "contract-1",
+        "name": "Contract 1",
+        "description": "Test-Contract Nr. 1",
+        "parent": null,
+        "children": [
+            "booking-1-1",
+            "booking-1-2"
+        ]
+    },
+    {
+        "_id": "booking-1-1",
+        "name": "Booking 1-1",
+        "description": "Booking 1 in Contract 1 ",
+        "parent": "contract-1",
+        "children": [
+            "position-1-1-1",
+            "position-1-1-2"
+        ]
+    },
+    {
+        "_id": "booking-1-2",
+        "name": "Booking 1-2",
+        "description": "Booking 2 in Contract 1 ",
+        "parent": "contract-1",
+        "children": []
+    },
+    {
+        "_id": "contract-2",
+        "name": "Contract 2",
+        "description": "Test-Contract Nr. 2",
+        "parent": null,
+        "children": [
+            "booking-2-1"
+        ]
+    },
+    {
+        "_id": "booking-2-1",
+        "name": "Booking 2-1",
+        "description": "Booking 1 in Contract 2 ",
+        "parent": "contract-2",
+        "children": [
+            "position-2-1-1"
+        ]
+    },
+    {
+        "_id": "position-2-1-1",
+        "name": "Booking-Position 2-1-1",
+        "description": "Position 1 in Booking 1 of Contract 2",
+        "parent": "booking-2-1",
+        "children": []
+    },
+    {
+        "_id": "position-1-1-1",
+        "name": "Booking-Position 1-1-1",
+        "description": "Position 1 in Booking 1 of Contract 1 ",
+        "parent": "booking-1-1",
+        "children": []
+    },
+    {
+        "_id": "position-1-1-2",
+        "name": "Booking-Position 1-1-2",
+        "description": "Position 2 in Booking 1 of Contract 1 ",
+        "parent": "booking-1-1",
+        "children": []
+    }
+]

@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "Tutorial project for NodeJS demonstrating: Express, Winston, MongoDB with Mongoose, Docker, Docker-Compose.",
   "scripts": {
-    "start": "node start.js"
+    "start": "node start.js",
+    "test": "jest --verbose",
+    "test-coverage": "jest --coverage",
+    "test-ci": "jest"
   },
   "repository": {
     "type": "git",
@@ -24,5 +27,10 @@
     "express": "^4.17.1",
     "mongoose": "^5.10.9",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "mongodb-memory-server": "^6.9.6",
+    "supertest": "^6.1.3"
   }
 }
