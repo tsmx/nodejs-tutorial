@@ -37,7 +37,7 @@ docker build -t tsmx/nodejs-tutorial .
 docker run -p 3000:3000 --add-host=mongoservice:172.17.0.1 tsmx/nodejs-tutorial
 ```
 
-In order to let a Docker container communicate with local services like MongoDB you have to find out the Docker network bridge IP of your installation. In this tutorial the hostname alias `mongoservice` is used, read more about that [here](#mongodb-hostname-alias). By default `172.17.0.1` is used as Docker's bridge IP. Check out your actual bridge IP by executing `docker network inspect bridge | grep Gateway`. For more details refer to the [Docker documentation on networking of standalone containers](https://docs.docker.com/network/network-tutorial-standalone/).
+In order to let a Docker container communicate with local services like MongoDB you have to find out the Docker network bridge IP of your installation and pass it to the `--add-host` option of `docker run`. In this tutorial the hostname alias `mongoservice` is used, read more about that [here](#mongodb-hostname-alias). By default `172.17.0.1` is used as Docker's bridge IP. Check out your actual bridge IP by executing `docker network inspect bridge | grep Gateway`. For more details refer to the [Docker documentation on networking of standalone containers](https://docs.docker.com/network/network-tutorial-standalone/).
 
 ### Docker-Compose
 
@@ -198,3 +198,9 @@ if (process.env.NODE_ENV == 'test') {
 ```
 
 Note that it is very common and a good practice to have `NODE_ENV` set to `test` when running unit-tests and also having it set to `production` when you are in an production environment. Some managed environments like Google App Engine automatically set `NODE_ENV` to `production` when running your app there (for more details refer to [App Engine environment variables](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables)). 
+
+## Legal notice
+
+This tutorial is provided under the permissive MIT license. So feel free to use it as a starting point for your own projects of any favour (commercial, non-commercial, whatever...). 
+
+Many 3rd party libraraies and tools are used here. It is your responsibility to check the licensing of any used 3rd party library and tool in this tutorial and decide on your own if it fits to your special use-case.
