@@ -185,7 +185,7 @@ The rationale for that is: unit-testing. Libraries like `supertest` often need a
 
 Since test frameworks like Jest normally produce their own (quite verbose) output, it makes sense to mute your own loggers when running the tests. To achieve this without any extensive configuration etc., simply make use of the fact that in most testing frameworks the environment variable `NODE_ENV` is set to the value `test`.
 
-Having that in mind, it is only two lines od code to achieve your logger being mute while running the tests:
+Having that in mind, it is only two lines of code to achieve your logger being mute while running the tests:
 
 ```js
 // see: utils/logging.js
@@ -197,4 +197,4 @@ if (process.env.NODE_ENV == 'test') {
 ...
 ```
 
-Note that it is very common and a good practice to have `NODE_ENV` set to `test` when running unit-tests and also having it set to `production` when you are in an production environment. Some managed environments like Google App Engine automatically set `NODE_ENV` to `production` when running you app there (for more details refer to [App Engine environment variables](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables)). 
+Note that it is very common and a good practice to have `NODE_ENV` set to `test` when running unit-tests and also having it set to `production` when you are in an production environment. Some managed environments like Google App Engine automatically set `NODE_ENV` to `production` when running your app there (for more details refer to [App Engine environment variables](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables)). 
