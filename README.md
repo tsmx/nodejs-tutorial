@@ -2,6 +2,8 @@
 
 > Tutorial project demonstrating common NodeJS development libraries & tools.
 
+Also intended to be a good starting point for your own projects.
+
 ## Contents of the tutorial
 
 ### Express
@@ -203,4 +205,4 @@ Note that it is very common and a good practice to have `NODE_ENV` set to `test`
 
 This tutorial is provided under the permissive MIT license. So feel free to use it as a starting point for your own projects of any favour (commercial, non-commercial, whatever...). 
 
-Many 3rd party libraraies and tools are used here. It is your responsibility to check the licensing of any used 3rd party library and tool in this tutorial and decide on your own if it fits to your special use-case.
+Many 3rd party libraries and tools are demonstrated and used here. It is your responsibility to check the licensing of any used 3rd party library and tool in this tutorial and decide on your own if it fits to your special use-case.
