@@ -95,7 +95,7 @@ http://localhost:3000
 
 The logic for the routes is implemented in the following controllers:
 
-- `controllers/masterDataContronller.js`
+- `controllers/masterDataController.js`
 - `controllers/testDataController.js`
 
 ## MongoDB scenario used in the tutorial
@@ -113,7 +113,7 @@ For the sake of simplicity MongoDB's authorization is supposed to be disbaled fo
 
 The databse name used in this tutorial is `nodejstest`. To prepare the the tutorial simply create a database with this name and load the intial test data by executing the contents of `snippets/insert-testdata.js` in this DB. You can simply do this e.g. by copying it to a Robo-3T shell window and press F5.
 
-The script will create and populate a collection called `masterdata` with some objects of type contact, booking and booking position. These objects are linked by reference to create the following logical structure:
+The script will create and populate a collection called `masterdata` with some documents representing contacts, bookings and booking positions. These documents are linked by reference to create the following logical structure:
 
 ```bash
 Contract 1
@@ -133,23 +133,28 @@ Contract 2
     +-- Booking-Position 2-1-1
 ```
 
-*Note:* This structure is not optimal and only used for demonstration purposes (e.g. to show how Mongoose's `populate` works in the route `/masterdata/:id/children`). In a real project, a structure based on nested documents would be more senseful for the use-case of modelling a contract hierarchy like this.
+*Note:* This model is not optimal and only used for demonstration purposes (e.g. to show how Mongoose's `populate` works in the route `/masterdata/:id/children`). In a real project, a structure based on nested MongoDB documents would be more senseful and optimal for the use-case of modelling a contract hierarchy like this.
 
-You can validate that hierarchy after loading the test data by executing the provided script in `snippets/mongo-queries.js` in your `nodejstest` database. It should print out exactly that hierarchy if everything was inserted successful.
+You can validate that hierarchy after loading the test data by executing the provided script in `snippets/query-testdata.js` in your `nodejstest` database (e.g. by copy & pasting into a Robo 3T's shell window and pressing F5). It should print out exactly that hierarchy if everything was inserted successful.
 
 ## Hints and best-practices
 
+Here are some hints and best-practices demonstrated that project which you may find useful when implementing your own NodeJS project.
+
 ### MongoDB hostname alias
 
-To make a project work seamlessly in both - local environment (MongoDB on localhost) and within Docker/Docker-Compose scenario - you should use an alias for the MongoDB database host and not `localhost`. The advantage is, that the alias works in both environments without the need of changing any configuration.
+To make a project work seamlessly in both - local environment (MongoDB on localhost) and within Docker/Docker-Compose scenario - you should use an alias for the MongoDB database host and not `localhost`. The advantage is, that the alias works in both environments without the need of changing any configuration. In the tutorial I use `mongoservice` as the alias in Docker-Compose. 
 
-In the tutorial I use `mongoservice` as the alias in Docker-Compose. To be able to run the project with your local MongoDB, simply add the following line to your `/etc/hosts` file:
+- To be able to run the project with your local MongoDB, simply add the following line to your `/etc/hosts` file:
+  ```bash
+  127.0.0.1   mongoservice
+  ```
+- For the Docker environment we use the `--add-host` option of the `docker run` command to let the alias point to your local machine by passing the Docker's bridge IP:
+  ```bash
+  ... --add-host=mongoservice:172.17.0.1 ...
+  ```
 
-```bash
-127.0.0.1   mongoservice
-```
-
-Having this in place, the application can always connect to the MongoDB by using the hostname alias `mongoservice`.
+Having this in place, the application always correctly connects to MongoDB by using the hostname alias `mongoservice`.
 
 ### MongoDB data directory for Docker-Compose
 
@@ -174,4 +179,22 @@ In most cases, it is the best solution to let Mongoose handle the `_id` field an
 
 You may have noticed that in this tutorial the traditional startup of the Express app by calling `app.listen(...)` is sourced-out to a separate small file called `start.js`. In `app.js` the Express app is configured entirely an then exported. Now, why that?
 
-The rationale for that is: unit-testing. Libraries like `supertest` often need a reference to the fully configured but not yet started and not yet bound to any concrete port Express app. This can easily be achieved by splitting the Express app configuration and startup into two files like in this tutorial.
+The rationale for that is: unit-testing. Libraries like `supertest` often need a reference to the fully configured Express app when it is not yet started and not yet bound to any concrete port. This can easily be achieved by splitting the Express app configuration and startup into two files like in this tutorial.
+
+### Muting logging for unit-testing
+
+Since test frameworks like Jest normally produce their own (quite verbose) output, it makes sense to mute your own loggers when running the tests. To achieve this without any extensive configuration etc., simply make use of the fact that in most testing frameworks the environment variable `NODE_ENV` is set to the value `test`.
+
+Having that in mind, it is only two lines od code to achieve your logger being mute while running the tests:
+
+```js
+// see: utils/logging.js
+...
+var transporters = [new winston.transports.Console()];
+if (process.env.NODE_ENV == 'test') {
+    transporters[0].silent = true;
+}
+...
+```
+
+Note that it is very common and a good practice to have `NODE_ENV` set to `test` when running unit-tests and also having it set to `production` when you are in an production environment. Some managed environments like Google App Engine automatically set `NODE_ENV` to `production` when running you app there (for more details refer to [App Engine environment variables](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables)). 
