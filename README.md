@@ -26,6 +26,12 @@ Unit-testing the Express server backend utilizing an in-memory MongoDB server pr
 
 Run `npm start test` to run the tests.
 
+### CI/CD with GitHub Actions
+
+Automatically build and test your NodeJS project with GitHub Actions.
+
+To learn more about this, how to migrate from Travis-CI or how to integrate with [Coveralls](https://coveralls.io/) also check out [this article](https://tsmx.net/ci-cd-with-github-actions-for-nodejs/) on that.
+
 ### Docker
 
 Dockerizing the app and run it in a virtual container.
@@ -211,9 +217,11 @@ To make an Express app finally run, you call `app.listen()` with the number of t
 const httpPort = process.env.PORT || 3000;
 ```
 
-With that you would always run on port `3000` unless an environment variable with name `PORT` is set to something different. The reason why this is a best practice is that you are prepard for running your app in managed cloud services like Google App Engine or AWS Elastic Beanstalk. There, the port to be used is determined by the service platform and injected by setting the environment variable `PORT`. For more details have look here for [App Engine](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables) or here for [AWS Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/nodejs-platform-proxy.html).
+With that you would always run on port `3000` unless an environment variable with name `PORT` is set to something different.
 
-Also it gives you the control over the port number without any need of code changes if you need to deviate from the standard port.
+One reason why this is a best practice is that with this you are prepared for running your app in managed cloud services like Google App Engine or AWS Elastic Beanstalk. There, the port to be used is determined by the service platform and injected by setting the environment variable `PORT`. For more details have look here for [App Engine](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables) or here for [AWS Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/nodejs-platform-proxy.html).
+
+A second argument for doing so it that it gives you the control over the port number without any need of code changes if you need to deviate from the standard port for any reason. You can simply set `PORT` to any number e.g. in a startup-script. 
 
 ## Legal notice
 
