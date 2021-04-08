@@ -1,7 +1,7 @@
 {
   "name": "nodejstutorial",
   "version": "0.0.1",
-  "description": "Tutorial project for NodeJS demonstrating: Express, Winston, MongoDB with Mongoose, Jest/supertest/mongodb-memory-server, Docker, Docker-Compose.",
+  "description": "Tutorial project for NodeJS demonstrating: Express, Winston, MongoDB with Mongoose, Jest/supertest/mongodb-memory-server, CI/CD with Github Actions, Docker, Docker-Compose.",
   "scripts": {
     "start": "node start.js",
     "test": "jest --verbose",

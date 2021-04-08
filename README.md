@@ -113,9 +113,9 @@ For the sake of simplicity MongoDB's authorization is supposed to be disbaled fo
 
 ### DB name and loading of test data
 
-The databse name used in this tutorial is `nodejstest`. To prepare the the tutorial simply create a database with this name and load the intial test data by executing the contents of `snippets/insert-testdata.js` in this DB. You can simply do this e.g. by copying it to a Robo-3T shell window and press F5.
+The databse name used in this tutorial is `nodejstest`. To prepare the the tutorial, simply create a database with this name and load the intial test data by executing the contents of `snippets/insert-testdata.js` in this DB. You can simply do this e.g. by copying it to a Robo-3T shell window and pressing F5.
 
-The script will create and populate a collection called `masterdata` with some documents representing contacts, bookings and booking positions. These documents are linked by reference to create the following logical structure:
+The script will create and populate a collection called `masterdata` with some documents representing contracts, bookings and booking positions. These documents are linked by reference to create the following logical structure:
 
 ```bash
 Contract 1
@@ -135,7 +135,7 @@ Contract 2
     +-- Booking-Position 2-1-1
 ```
 
-*Note:* This model is not optimal and only used for demonstration purposes (e.g. to show how Mongoose's `populate` works in the route `/masterdata/:id/children`). In a real project, a structure based on nested MongoDB documents would be more senseful and optimal for the use-case of modelling a contract hierarchy like this.
+*Note:* This data model is not optimal and only used for demonstration purposes (e.g. to show how Mongoose's `populate` works in the route `/masterdata/:id/children`). In a real project, a structure based on nested MongoDB documents would be more senseful and optimal for the use-case of modelling a contract hierarchy like this.
 
 You can validate that hierarchy after loading the test data by executing the provided script in `snippets/query-testdata.js` in your `nodejstest` database (e.g. by copy & pasting into a Robo 3T's shell window and pressing F5). It should print out exactly that hierarchy if everything was inserted successful.
 
@@ -160,9 +160,9 @@ Having this in place, the application always correctly connects to MongoDB by us
 
 ### MongoDB data directory for Docker-Compose
 
-In the tutorial I mapped a local folder to `/data/db` in the MongoDB Docker-Compose container to have the data stored locally to persist it, e.g. when pruning all Docker data.
+In the tutorial a local folder is mapped to `/data/db` in the MongoDB Docker-Compose container to have the data stored locally to persist it, e.g. when pruning all Docker data.
 
-To adjust this configuration for your environment, change the follwing line in `docker-compose.yml` and put your path to the MongoDB data left to the colon:
+To adjust this configuration for your environment, change the following line in `docker-compose.yml` and put your local path to the MongoDB data left to the colon:
 
 ```yml
 mongoservice:
@@ -183,7 +183,7 @@ You may have noticed that in this tutorial the traditional startup of the Expres
 
 The rationale for that is: unit-testing. Libraries like `supertest` often need a reference to the fully configured Express app when it is not yet started and not yet bound to any concrete port. This can easily be achieved by splitting the Express app configuration and startup into two files like in this tutorial.
 
-### Muting logging for unit-testing
+### Muting loggers for testing
 
 Since test frameworks like Jest normally produce their own (quite verbose) output, it makes sense to mute your own loggers when running the tests. To achieve this without any extensive configuration etc., simply make use of the fact that in most testing frameworks the environment variable `NODE_ENV` is set to the value `test`.
 
@@ -199,7 +199,21 @@ if (process.env.NODE_ENV == 'test') {
 ...
 ```
 
-Note that it is very common and a good practice to have `NODE_ENV` set to `test` when running unit-tests and also having it set to `production` when you are in an production environment. Some managed environments like Google App Engine automatically set `NODE_ENV` to `production` when running your app there (for more details refer to [App Engine environment variables](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables)). 
+Note that it is very common and a good practice to have `NODE_ENV` set to `test` when running unit-tests and also having it set to `production` when you are in an production environment. Some managed environments like Google App Engine automatically set `NODE_ENV` to `production` when running your app there. 
+
+For more details about App Enginge environment variables refer to [the offical docs](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables). 
+
+### Handling the port to be used
+
+To make an Express app finally run, you call `app.listen()` with the number of the port to use and a callback. Now instead of putting a hardcoded number there - which may be perfectly fine for your local development - it is quite common to set the port like this:
+
+```js
+const httpPort = process.env.PORT || 3000;
+```
+
+With that you would always run on port `3000` unless an environment variable with name `PORT` is set to something different. The reason why this is a best practice is that you are prepard for running your app in managed cloud services like Google App Engine or AWS Elastic Beanstalk. There, the port to be used is determined by the service platform and injected by setting the environment variable `PORT`. For more details have look here for [App Engine](https://cloud.google.com/appengine/docs/standard/nodejs/runtime?hl=de#environment_variables) or here for [AWS Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/nodejs-platform-proxy.html).
+
+Also it gives you the control over the port number without any need of code changes if you need to deviate from the standard port.
 
 ## Legal notice
 
