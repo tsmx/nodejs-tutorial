@@ -9,50 +9,47 @@ var mongoServer = null;
 
 describe('masterdata test suite', () => {
 
-    beforeAll(async (done) => {
+    beforeAll(async () => {
         mongoServer = new MongoMemoryServer();
-        testUtils.beforeAll(mongoServer, 'testdb', mongoose).then(() => { done(); });
+        return testUtils.beforeAll(mongoServer, 'testdb', mongoose);
     });
 
-    afterAll(async (done) => {
-        testUtils.afterAll(mongoServer, mongoose).then(() => { done(); });
+    afterAll(async () => {
+        return testUtils.afterAll(mongoServer, mongoose);
     });
 
-    beforeEach(async (done) => {
-        testUtils.beforeEach().then(() => { done(); });
+    beforeEach(async () => {
+        return testUtils.beforeEach();
     });
 
-    afterEach(async (done) => {
-        testUtils.afterEach().then(() => { done(); });
+    afterEach(async () => {
+        return testUtils.afterEach();
     });
 
-    it('tests a successful query of all available masterdata', async (done) => {
+    it('tests a successful query of all available masterdata', async () => {
         const response = await request
             .get('/masterdata');
         expect(response.status).toBe(200);
         expect(response.body.length).toBe(8);
-        done();
     });
 
-    it('tests a successful query of an existing contract', async (done) => {
+    it('tests a successful query of an existing contract', async () => {
         const response = await request
             .get('/masterdata/contract-1');
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
         expect(response.body.name).toBe('Contract 1');
         expect(response.body.description).toBe("Test-Contract Nr. 1");
-        done();
     });
 
-    it('tests a successful query of a non existing contract', async (done) => {
+    it('tests a successful query of a non existing contract', async () => {
         const response = await request
             .get('/masterdata/contract-3');
         expect(response.status).toBe(200);
         expect(response.body).toBeNull();
-        done();
     });
 
-    it('tests a successful query of the children for an existing contract', async (done) => {
+    it('tests a successful query of the children for an existing contract', async () => {
         const response = await request
             .get('/masterdata/contract-1/children');
         expect(response.status).toBe(200);
@@ -60,7 +57,6 @@ describe('masterdata test suite', () => {
         expect(response.body.children.length).toBe(2);
         expect(response.body.children.filter(item => item.name === 'Booking 1-1').length).toBe(1);
         expect(response.body.children.filter(item => item.name === 'Booking 1-2').length).toBe(1);
-        done();
     });
 
 });
