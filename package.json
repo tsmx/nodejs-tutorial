@@ -27,7 +27,7 @@
   "author": "tsmx <dev@tsmx.net>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "mongoose": "^5.10.9",
     "winston": "^3.2.1"
   },
