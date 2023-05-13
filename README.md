@@ -58,8 +58,8 @@ docker-compose up
 ```
 
 The prerequisities for this are:
-- You have a local MongoDB data directory. This will be mounted into Docker-Compose. Assumed local directory is `/var/db/mongo/data`. To adapt to your needs, change the `volumes` entry in `docker-compose.yml` accordingly. See also [here for the directory location](#mongodb-data-directory-for-docker-compose) and here for [loading the sample data](#db-name-and-loading-of-test-data).
-- The local UID:GID (user ID + group ID) that is allowd to access the local MongoDB data directory is `1001:1001`. To adapt toyour needs, change the `user` entry in `docker-compose.yml` accordingly.
+- You have a local MongoDB data directory. This will be mounted into Docker-Compose. Assumed local directory is `/var/db/mongo/data`. See also [here for the directory location](#mongodb-data-directory-for-docker-compose) and [here for loading the sample data](#db-name-and-loading-of-test-data).
+- The local UID:GID (user ID + group ID) that is allowed to access the local MongoDB data directory is `1001:1001`. To adapt to your needs, change the `user` entry in `docker-compose.yml` accordingly.
 
 This Docker-Composethe is also a good example of services depending on each other: the example app needs the MongoDB database running properly before itself can start serving requests. To achieve this, Docker-Compose has features for controlling the [order of starting up composed services](https://docs.docker.com/compose/startup-order/). In this example the `depends_on` option is used together with an `condition: service_started` condition.
 
