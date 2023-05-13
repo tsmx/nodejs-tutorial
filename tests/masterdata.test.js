@@ -10,7 +10,7 @@ var mongoServer = null;
 describe('masterdata test suite', () => {
 
     beforeAll(async () => {
-        mongoServer = new MongoMemoryServer();
+        mongoServer = await MongoMemoryServer.create();
         return testUtils.beforeAll(mongoServer, 'testdb', mongoose);
     });
 

@@ -15,12 +15,11 @@ module.exports.beforeAll = async function (server, dbname, mongoose) {
             useNewUrlParser: true,
             useUnifiedTopology: true
         };
-        server.getUri(dbname).then((mongoUri) => {
-            mongoose.connect(mongoUri, dbOptions);
-            var db = mongoose.connection;
-            db.once('open', function () {
-                resolve();
-            });
+        const mongoUri = server.getUri(dbname);
+        mongoose.connect(mongoUri, dbOptions);
+        var db = mongoose.connection;
+        db.once('open', function () {
+            resolve();
         });
     });
 };
