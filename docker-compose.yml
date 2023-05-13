@@ -13,7 +13,7 @@ services:
     command: [ "./scripts/wait-for-it.sh", "mongoservice:27017", "--", "npm", "start" ]
   mongoservice:
     container_name: mongoservice
-    image: mongo:3.4
+    image: mongo:6.0.5
     volumes:
       - /Users/strs/Documents/mongodata:/data/db
     ports:
