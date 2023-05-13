@@ -7,14 +7,15 @@ services:
     ports:
       - "3000:3000"
     depends_on: 
-      - mongoservice
+      mongoservice:
+        condition: service_started
     links: 
       - mongoservice
-    command: [ "./scripts/wait-for-it.sh", "mongoservice:27017", "--", "npm", "start" ]
   mongoservice:
     container_name: mongoservice
     image: mongo:6.0.5
+    user: "1001:1001"
     volumes:
-      - /Users/strs/Documents/mongodata:/data/db
+      - /var/db/mongo/data:/data/db:Z
     ports:
-      - "37017:27017"
+      - "27017:27017"
