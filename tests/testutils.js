@@ -13,8 +13,6 @@ module.exports.beforeAll = async function (server, dbname, mongoose) {
     return new Promise((resolve) => {
         const dbOptions = {
             useNewUrlParser: true,
-            useCreateIndex: true,
-            useFindAndModify: false,
             useUnifiedTopology: true
         };
         server.getUri(dbname).then((mongoUri) => {
