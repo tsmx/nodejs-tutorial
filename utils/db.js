@@ -4,9 +4,7 @@ var mongoose = require('mongoose');
 const dbURI = 'mongodb://mongoservice:27017/nodejstutorial';
 
 const dbOptions = {
-    useNewUrlParser: true, 
-    useCreateIndex: true,
-    useFindAndModify: false,
+    useNewUrlParser: true,
     useUnifiedTopology: true
 };
 
@@ -30,10 +28,11 @@ function connect(cb) {
 
 // If the Node process ends, close the Mongoose connection 
 process.on('SIGINT', function () {
-  mongoose.connection.close(function () {
-    logger.info('Mongoose default connection disconnected through app termination');
-    process.exit(0);
-  });
+    mongoose.connection.close()
+        .then(() => {
+            logger.info('Mongoose default connection disconnected through app termination');
+            process.exit(0);
+        });
 });
 
 module.exports.connect = function (cb) { connect(cb); };
