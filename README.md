@@ -49,9 +49,21 @@ In order to let a Docker container communicate with local services like MongoDB 
 
 ### Docker-Compose
 
-Docker-Compose the app together it with a MongoDB database to create fully self-contained containerized solution.
+Docker-Compose the app together it with a MongoDB database to create fully self-contained containerized solution. MongoDB's data is assumed to be external in a local folder and not part of the Docker-Compose as this is not a best-practice.
 
-Includes showcase for the `wait-for-it.sh` script to ensure proper [order of starting up composed services](https://docs.docker.com/compose/startup-order/), e.g. DB before application.
+To run the example simply run the following command in the main folder:
+
+```bash
+docker-compose up
+```
+
+The prerequisities for this are:
+- You have a local MongoDB data directory. This will be mounted into Docker-Compose. Assumed local directory is `/var/db/mongo/data`. To adapt to your needs, change the `volumes` entry in `docker-compose.yml` accordingly. See also [here for the directory location](#mongodb-data-directory-for-docker-compose) and here for [loading the sample data](#db-name-and-loading-of-test-data).
+- The local UID:GID (user ID + group ID) that is allowd to access the local MongoDB data directory is `1001:1001`. To adapt toyour needs, change the `user` entry in `docker-compose.yml` accordingly.
+
+This Docker-Composethe is also a good example of services depending on each other: the example app needs the MongoDB database running properly before itself can start serving requests. To achieve this, Docker-Compose has features for controlling the [order of starting up composed services](https://docs.docker.com/compose/startup-order/). In this example the `depends_on` option is used together with an `condition: service_started` condition.
+
+Please note that the use of the built-in order control features should be preferred over the commonly used `wait-for-it.sh` which was very popular in the past. This script is a non-Docker dependency and also introduces the need of a `bash` in the used Docker images which is not present in many modern images.
 
 ## File and folder structure
 
