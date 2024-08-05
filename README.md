@@ -26,6 +26,10 @@ Unit-testing the Express server backend utilizing an in-memory MongoDB server pr
 
 Run `npm start test` to run the tests.
 
+### eslint
+
+A popular linter to keep your code clean and at consistent quality.
+
 ### CI/CD with GitHub Actions
 
 Automatically build and test your NodeJS project with GitHub Actions.
