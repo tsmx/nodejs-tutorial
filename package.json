@@ -22,7 +22,9 @@
     "Winston",
     "Jest",
     "supertest",
-    "mongodb-memory-server"
+    "mongodb-memory-server",
+    "GitHub Actions",
+    "eslint"
   ],
   "author": "tsmx <dev@tsmx.net>",
   "license": "MIT",
