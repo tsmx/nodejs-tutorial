@@ -15,7 +15,15 @@ module.exports = [
             semi: 'error',
             quotes: ['error', 'single'],
             indent: ['error', 4, { 'SwitchCase': 1 }],
-            'no-unused-vars': ['warn', { 'varsIgnorePattern': '^_', 'args': 'after-used', 'argsIgnorePattern': '^_' }]
+            'no-unused-vars':
+                [
+                    'warn',
+                    {
+                        'varsIgnorePattern': '^_',
+                        'args': 'after-used',
+                        'argsIgnorePattern': '^_'
+                    }
+                ]
         },
         ignores: ['snippets/*', 'scripts/*']
     },
