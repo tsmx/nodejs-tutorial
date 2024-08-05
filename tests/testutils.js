@@ -2,12 +2,12 @@ const masterDataModel = require('../models/masterDataModel');
 const testData = require('./testdata');
 
 module.exports.beforeEach = async function () {
-    await masterDataModel.insertMany(testData)
+    await masterDataModel.insertMany(testData);
 };
 
 module.exports.afterEach = async function () {
     await masterDataModel.deleteMany();
-}
+};
 
 module.exports.beforeAll = async function (server, dbname, mongoose) {
     return new Promise((resolve) => {

@@ -39,7 +39,7 @@ describe('masterdata test suite', () => {
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
         expect(response.body.name).toBe('Contract 1');
-        expect(response.body.description).toBe("Test-Contract Nr. 1");
+        expect(response.body.description).toBe('Test-Contract Nr. 1');
     });
 
     it('tests a successful query of a non existing contract', async () => {
