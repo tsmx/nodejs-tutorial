@@ -11,12 +11,8 @@ module.exports.afterEach = async function () {
 
 module.exports.beforeAll = async function (server, dbname, mongoose) {
     return new Promise((resolve) => {
-        const dbOptions = {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        };
         const mongoUri = server.getUri(dbname);
-        mongoose.connect(mongoUri, dbOptions);
+        mongoose.connect(mongoUri);
         var db = mongoose.connection;
         db.once('open', function () {
             resolve();

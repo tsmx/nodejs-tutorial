@@ -15,7 +15,7 @@ describe('masterdata test suite', () => {
     });
 
     afterAll(async () => {
-        return testUtils.afterAll(mongoServer, mongoose);
+        await testUtils.afterAll(mongoServer, mongoose);
     });
 
     beforeEach(async () => {
