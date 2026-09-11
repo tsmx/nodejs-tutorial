@@ -4,9 +4,9 @@
   "description": "Tutorial project for NodeJS demonstrating: Express, Winston, MongoDB with Mongoose, Jest/supertest/mongodb-memory-server, CI/CD with GitHub Actions, Docker, Docker-Compose.",
   "scripts": {
     "start": "node start.js",
-    "test": "jest --verbose",
-    "test-coverage": "jest --coverage",
-    "test-ci": "jest"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --verbose",
+    "test-coverage": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --coverage",
+    "test-ci": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
   "repository": {
     "type": "git",
